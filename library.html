@@ -9,20 +9,37 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="overlay-container" display="none">
+        <div id="overlay">
+            <button onclick="closeOverlay()" id="overlay-close">X</button>
+            <h2>ADD NEW BOOK</h2>
+            <input type="text" minlength="1" name="new-title" id="new-title" placeholder="BOOK TITLE" required/>
+            <input type="text" minlength="1" name="new-author" id="new-author" placeholder="AUTHOR" required/>
+            <input type="number" max="9999" name="new-pages" id="new-pages" placeholder="NUBER OF PAGES" required/>
+                      
+
+            <div class="overlay-buttons">
+                <button onclick="markAsRead()" value="false">MARK AS READ ?</button>
+                <button onclick="addBookToLibrary()">ADD NEW BOOK</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
 
         <div class="header">
             <div class="nav">
                 <h1>myLibrary</h1>
-                <button onclick="addBookToLibrary()">ADD NEW BOOK</button>
+                <button onclick="addBookToLibrary()" id="add-new-book">ADD NEW BOOK</button>
             </div>
         </div>
 
         <div class="main">
+
             <div class="collection">
-                <div class="collection-title">
+                <!--div class="collection-title">
                     <h2>Collection N˚1</h2>
-                </div>
+                </div-->
 
                 <div class="collection-books">
 

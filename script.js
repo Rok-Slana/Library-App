@@ -1,3 +1,4 @@
+const overlayDialog = document.getElementById('overlay-container'); 
 let myLibrary = [];
 
 let book0 = new Book('Popolna omama', 'Norman Ohler', 338, true);
@@ -14,8 +15,15 @@ function Book(title, author, pages, read){
     this.read = read;
 }
 
-function addBookToLibrary(){
-    prompt('Add new book?');
+function addBookToLibrary(){  
+    overlayDialog.style.visibility = 'visible';
+    overlayDialog.style.opacity = 1;
+
+}
+
+function closeOverlay(){
+    overlayDialog.style.visibility = 'hidden';
+    overlayDialog.style.opacity = 0;
 }
 
 function showCollection(){
@@ -73,10 +81,15 @@ function showCollection(){
         //APPEND UI
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'REMOVE';
-        deleteButton.setAttribute('onClick', `deleteThisBook(${index})`);
+        deleteButton.classList.add('rm-btn');
+        deleteButton.setAttribute('onclick', `deleteThisBook(${index})`);
         const readBtn = document.createElement('button');
-        readBtn.innerText = 'ALREADY READ';
+        readBtn.classList.add('read-btn');
+        readBtn.setAttribute('id', index);
 
+        element.read == true ? readBtn.innerText='READ':readBtn.innerText = 'NOT READ';
+        element.read == true ? readBtn.classList.add('done') : readBtn.classList.add('todo');
+        readBtn.setAttribute('onclick', 'toggleStatus(this.id)');
         bookUI.appendChild(readBtn);
         bookUI.appendChild(deleteButton);
         newBook.appendChild(bookUI);
@@ -96,6 +109,28 @@ function deleteThisBook(num){
     }  
     //RE-RENDER UPDATED LIBRARY
     showCollection();
+}
+
+function markAsRead(){
+    console.log("Marked");
+}
+
+function toggleStatus(btn){
+
+    let currentButton = document.getElementById(btn);
+    let classValue = currentButton.classList[1];
+    
+    if(classValue == 'done'){
+        currentButton.classList.remove('done');
+        currentButton.classList.add('todo');
+        currentButton.innerText = 'NOT READ';
+    }else if(classValue == 'todo'){
+        currentButton.classList.remove('todo');
+        currentButton.classList.add('done');
+        currentButton.innerText = 'READ';
+    }else{
+        console.error('Houston, we have a problem.');
+    }
 }
 
 showCollection();
