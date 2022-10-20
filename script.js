@@ -7,33 +7,22 @@ let book3 = new Book('Love All The People', 'Constable', 384, true);
 
 myLibrary.push(book0, book1, book2, book3);
 
-
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.changeStatus = function(){
-        read == false ? true : false;
-    }
-    this.deleteBook = function(){
-        console.log('Delete this book');
-    }
 }
 
 function addBookToLibrary(){
-
-}
-
-function removeBookFromLibrary(){
-
+    prompt('Add new book?');
 }
 
 function showCollection(){
 
     const myCollection = document.querySelector('.collection-books');
 
-    myLibrary.forEach(element => {
+    myLibrary.forEach((element,index) => {
 
         //CREATE NEW BOOK
         let newBook = document.createElement('div');
@@ -47,22 +36,6 @@ function showCollection(){
         //CREATE NEW DATA
         let newData = document.createElement('div');
         newData.setAttribute('class','data');
-        //CREATE BOOK UI
-        const bookUI = document.createElement('div');
-        bookUI.setAttribute('class', 'book-ui');
-
-        //APPEND UI
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'X';
-        const readInfo = document.createElement('div');
-        readInfo.setAttribute('class', 'data-read');
-        readInfo.innerText = element.read;
-        
-        element.read == true ? bookUI.classList.add('read') : bookUI.classList.add();
-
-        bookUI.appendChild(readInfo);
-        bookUI.appendChild(deleteButton);
-        newBook.appendChild(bookUI);
       
         //APPEND INFO
         let title = document.createElement('div');
@@ -88,33 +61,43 @@ function showCollection(){
         newData.appendChild(newBookAuthor);
         newData.appendChild(newBookPages);
 
-
-        //APPEND ALL TO NEW BOOK
+        //APPEND DATA TO NEW BOOK
         newBookInfo.appendChild(newInfo);
         newBookInfo.appendChild(newData);
         newBook.appendChild(newBookInfo);
 
+        //CREATE BOOK UI
+        const bookUI = document.createElement('div');
+        bookUI.setAttribute('class', 'book-ui');
 
+        //APPEND UI
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'REMOVE';
+        deleteButton.setAttribute('onClick', `deleteThisBook(${index})`);
+        const readBtn = document.createElement('button');
+        readBtn.innerText = 'ALREADY READ';
 
-        myCollection.appendChild(newBook);       
+        bookUI.appendChild(readBtn);
+        bookUI.appendChild(deleteButton);
+        newBook.appendChild(bookUI);
+        newBook.setAttribute('book-number', index);
 
+        myCollection.appendChild(newBook); 
     });
 }
 
-// function checkReadBooks(){
-//     const allBooks = document.querySelectorAll('.book');
-// }
+function deleteThisBook(num){    
+    //REMOVE SELECTED BOOK FROM ARRAY
+    myLibrary.splice(num, 1);
+    //CLEAR ALL REMAINING BOOKS FROM LIBRARY
+    const bookCollection = document.querySelector('.collection-books');
+    while (bookCollection.firstChild) {
+      bookCollection.removeChild(bookCollection.lastChild);
+    }  
+    //RE-RENDER UPDATED LIBRARY
+    showCollection();
+}
 
 showCollection();
-
-const allBooks = document.querySelectorAll('.book-ui');
-allBooks.forEach(book => book.addEventListener('click', changeStatus));
-
-// function changeStatus(e){
-//     console.log(e);
-//     this.classList.toggle('read');
-// }
-
-
 
 

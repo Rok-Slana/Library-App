@@ -102,21 +102,9 @@ h2{
     font-weight: bold;
     margin: 6px;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     background-color: whitesmoke;
-}
-.book-ui{
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    background-color: lightgray;
-    /* align-items: center; */
-}
-
-.book-ui:nth-child(1){
-    padding: 0px 0px 0px 20px;
-    align-items: center;
-    color: rgb(255, 255, 255);
 }
 
 .book-info{
@@ -141,34 +129,17 @@ h2{
     font-weight: bold;
 }
 
-.book button{
+.book-ui{
+    cursor: pointer;
+    margin: 0 16px 10px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-ui button{
     height: 30px;
-    width: 30px;
+    width: 150px;
+    border-radius: 20px;
     border-style: none;
-    margin:4px 4px 0px 10px;
-    font-weight: bold;
-    background-color: whitesmoke;
-    color: gray;
-    border-radius: 50px 50px 50px 50px;
+    border: 1px solid lightgray;
 }
-
-.book button:hover{
-    color: white;
-    background-color: rgb(162, 117, 227);
-}
-
-/* .read, .unread:hover{
-    color: dimgray;
-    cursor: pointer;
-}
-
-.unread, .read:hover{
-    color: lightgray;
-    cursor: pointer;
-} */
-
-
-.read{
-    background-color: rgb(170, 211, 248);
-}
-
