@@ -1,4 +1,5 @@
 const overlayDialog = document.getElementById('overlay-container'); 
+const overlayMarkButton = document.getElementById('mark-as-read');
 let myLibrary = [];
 
 let book0 = new Book('Popolna omama', 'Norman Ohler', 338, true);
@@ -8,6 +9,7 @@ let book3 = new Book('Love All The People', 'Constable', 384, true);
 
 myLibrary.push(book0, book1, book2, book3);
 
+//Make new Book
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
@@ -15,17 +17,49 @@ function Book(title, author, pages, read){
     this.read = read;
 }
 
-function addBookToLibrary(){  
+//Open Add new book dialogue
+function openDialoge(){
     overlayDialog.style.visibility = 'visible';
     overlayDialog.style.opacity = 1;
-
 }
 
+//Close Add new book dialogue
 function closeOverlay(){
     overlayDialog.style.visibility = 'hidden';
     overlayDialog.style.opacity = 0;
+    resetButton();
 }
 
+//Add new book to library
+function addBookToLibrary(){  
+
+    let newTitle = document.getElementById('new-title').value;
+    let newAuthor = document.getElementById('new-author').value;
+    let newPages = document.getElementById('new-pages').value;
+    let newRead = overlayMarkButton.getAttribute('value');
+
+
+    let newBook = new Book(newTitle, newAuthor, newPages, newRead);
+    myLibrary.push(newBook);
+
+    console.log(newRead);
+    console.log(myLibrary);
+    clearAllBooks();
+    showCollection();
+    closeOverlay();
+
+}
+
+//Clear all books from container
+function clearAllBooks(){
+    //CLEAR ALL REMAINING BOOKS FROM LIBRARY
+    const bookCollection = document.querySelector('.collection-books');
+    while (bookCollection.firstChild) {
+    bookCollection.removeChild(bookCollection.lastChild);
+}  
+}
+
+//Render all books from MyLibrary
 function showCollection(){
 
     const myCollection = document.querySelector('.collection-books');
@@ -99,22 +133,49 @@ function showCollection(){
     });
 }
 
+//Delete book
 function deleteThisBook(num){    
     //REMOVE SELECTED BOOK FROM ARRAY
     myLibrary.splice(num, 1);
-    //CLEAR ALL REMAINING BOOKS FROM LIBRARY
-    const bookCollection = document.querySelector('.collection-books');
-    while (bookCollection.firstChild) {
-      bookCollection.removeChild(bookCollection.lastChild);
-    }  
-    //RE-RENDER UPDATED LIBRARY
+    clearAllBooks();  
     showCollection();
 }
 
+//Overlay 'Mark as read?' button
 function markAsRead(){
-    console.log("Marked");
+
+    let classValue = overlayMarkButton.classList;
+
+    if(classValue == ''){
+        overlayMarkButton.classList.add('mark-read');
+        overlayMarkButton.style.border = '2px solid seagreen';
+        overlayMarkButton.style.color = 'seagreen';
+        overlayMarkButton.innerText = 'READ';
+        overlayMarkButton.setAttribute('value', 1);
+    }else if (classValue == 'mark-read'){
+        overlayMarkButton.classList.remove('mark-read');
+        overlayMarkButton.style.border = '2px solid tomato';
+        overlayMarkButton.style.color = 'tomato';
+        overlayMarkButton.innerText = 'NOT READ';
+        overlayMarkButton.setAttribute('value', 0);
+    }else{
+        console.error('Here\'s Tom with the weather.');
+    }
 }
 
+//Reset all overlay input fields and values  
+function resetButton(){
+    document.getElementById('new-title').value = '';
+    document.getElementById('new-author').value = '';
+    document.getElementById('new-pages').value = '';
+    overlayMarkButton.classList.remove('mark-read');
+    overlayMarkButton.style.border = '2px solid lightgray';
+    overlayMarkButton.style.color = 'dimgray';
+    overlayMarkButton.setAttribute('value', 0);
+    overlayMarkButton.innerText = 'MARK AS READ ?';
+}
+
+//Toggle read/not read status for books in collection
 function toggleStatus(btn){
 
     let currentButton = document.getElementById(btn);
