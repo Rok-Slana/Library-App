@@ -91,11 +91,10 @@ html, body{
 
 .header{
     grid-area: 1/1/2/5;
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     border-bottom: 4px solid lightgray;
     box-shadow: 0 0 80px 20px rgba(255, 255, 255, 0.8) inset;
-    display: flex;
+     display: flex;
 }
 
 .nav{
@@ -126,23 +125,16 @@ html, body{
     transition: border 0.25s linear;
 }
 
-h2{
-    font-style: italic;
-    font-size: 30px;
-    color: rgb(165, 165, 165);
-    margin: 16px 0 0 36px; 
-}
-
 .main{
     box-shadow: 0 0 80px 20px rgba(255, 255, 255, 0.8) inset;
     grid-area: 2/1/3/5;
+    overflow: scroll;
 }
 
 .collection{
     display: grid;
     grid-template-rows: 0.1fr 0.9fr;
     gap: 10px;
-
 }
 
 .collection-title{
@@ -225,4 +217,27 @@ h2{
 .todo{
     color: tomato;
     border: 2px solid tomato;
+}
+
+@media  all and (max-width: 800px) {
+    .nav{
+        flex-direction: column;
+        display: flex;
+        align-content: center;
+        height: 180px;
+    }
+    
+    .nav h1{
+        font-style: italic;
+        font-size: 70px;
+        margin: 0;
+    }
+    
+    .nav button{
+        width: 80%;
+        height: 50px;
+        font-size: 20px;
+        margin: 0;
+        margin-bottom: 20px;
+    }
 }
